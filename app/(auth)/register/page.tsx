@@ -14,6 +14,8 @@ export default function Page() {
   const router = useRouter();
 
   const [email, setEmail] = useState('');
+  const [isSuccessful, setIsSuccessful] = useState(false);
+
   const [state, formAction] = useActionState<RegisterActionState, FormData>(
     register,
     {
@@ -30,6 +32,7 @@ export default function Page() {
       toast.error('Failed validating your submission!');
     } else if (state.status === 'success') {
       toast.success('Account created successfully');
+      setIsSuccessful(true);
       router.refresh();
     }
   }, [state, router]);

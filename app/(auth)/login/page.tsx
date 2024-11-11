@@ -14,6 +14,7 @@ export default function Page() {
   const router = useRouter();
 
   const [email, setEmail] = useState('');
+  const [isSuccessful, setIsSuccessful] = useState(false);
 
   const [state, formAction] = useActionState<LoginActionState, FormData>(
     login,
@@ -28,6 +29,7 @@ export default function Page() {
     } else if (state.status === 'invalid_data') {
       toast.error('Failed validating your submission!');
     } else if (state.status === 'success') {
+      setIsSuccessful(true);
       router.refresh();
     }
   }, [state.status, router]);
@@ -47,7 +49,7 @@ export default function Page() {
           </p>
         </div>
         <AuthForm action={handleSubmit} defaultEmail={email}>
-          <SubmitButton>登录</SubmitButton>
+          <SubmitButton isSuccessful={isSuccessful}>登录</SubmitButton>
         </AuthForm>
       </div>
     </div>
